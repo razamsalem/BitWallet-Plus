@@ -156,19 +156,18 @@ const contacts = [
 function sort(arr) {
     return arr.sort((a, b) => {
         if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) {
-            return -1;
+            return -1
         }
         if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) {
-            return 1;
+            return 1
         }
-
-        return 0;
+        return 0
     })
 }
 
 function getContacts(filterBy = null) {
     return new Promise((resolve, reject) => {
-        var contactsToReturn = contacts;
+        var contactsToReturn = contacts
         if (filterBy && filterBy.term) {
             contactsToReturn = filter(filterBy.term)
         }
@@ -186,10 +185,11 @@ function getContactById(id) {
 function deleteContact(id) {
     return new Promise((resolve, reject) => {
         const index = contacts.findIndex(contact => contact._id === id)
+        console.log('index', index)
+        console.log('id', id)
         if (index !== -1) {
             contacts.splice(index, 1)
         }
-
         resolve(contacts)
     })
 }
@@ -232,8 +232,6 @@ function filter(term) {
             contact.email.toLocaleLowerCase().includes(term)
     })
 }
-
-
 
 function _makeId(length = 10) {
     var txt = ''

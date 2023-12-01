@@ -1,29 +1,11 @@
 # BitWallet Plus
 
-This template should help get you started developing with Vue 3 in Vite.
+After building a bitcoin wallet application for the user to transfer/convert funds and view statistics with Angular, this project was built in Vue to strengthen knowledge
 
-## Recommended IDE Setup
+## Here are some of its key features:
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- A logged in user can transfer Bitcoins from his balance to any of his contacts.
 
-## Customize configuration
+- The user can edit, add and remove contacts.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+- The app uses an API to fetch and display information about the trade volume and exchange rate of Bitcoin.
