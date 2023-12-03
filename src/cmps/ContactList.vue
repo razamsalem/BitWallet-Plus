@@ -3,13 +3,10 @@
         <ul class="contact-list">
             <li v-for="contact in contacts" :key="contact._id">
                 <ContactPreview :contact="contact" />
-                <RouterLink :to="`/contact/${contact._id}`">
-                    <button> Details </button>
-                </RouterLink>
-                <RouterLink to="/contact/edit">
+                <RouterLink :to="`/contact/edit/${contact._id}`">
                     <button> Edit </button>
                 </RouterLink>
-                <button @click="onRemoveContact(contact)">x</button>
+                <button @click="onRemoveContact(contact._id)">x</button>
             </li>
         </ul>
     </section>
@@ -25,8 +22,8 @@ export default {
         }
     },
     methods: {
-        onRemoveContact(contact) {
-            this.$emit('remove', contact)
+        onRemoveContact(contactId) {
+            this.$emit('remove', contactId)
         }
     },
     components: {

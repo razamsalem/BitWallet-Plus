@@ -22,8 +22,14 @@ export default {
         }
     },
     methods: {
-        async removeContact(contact) {
-            await contactService.removeContact(contact._id)
+        async removeContact(contactId) {
+            try {
+				await contactService.removeContact(contactId)
+                const idx = this.contacts.findIndex(contact => contact._id === contactId)
+				this.contacts.splice(idx, 1)
+			} catch (err) {
+				console.log('Cant delete contact', err)
+			}
         },
         onFilter(newFilter) {
             this.filterBy = newFilter
