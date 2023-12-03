@@ -1,10 +1,11 @@
 <template>
-    <section class="contact-index">
+    <section v-if="contacts" class="contact-index">
         <ContactFilter @set-filter="onFilter" />
-        <contactList v-if="contacts" :contacts="filteredContacts" @remove="removeContact" />
-
-        <img v-else src="../assets/spinning-circles.svg" alt="">
+        <contactList :contacts="filteredContacts" @remove="removeContact" />
     </section>
+    <div v-else class="loader">
+        <img src="../assets/three-dots.svg" alt="">
+    </div>
 </template>
 
 <script>
@@ -14,7 +15,7 @@ import contactList from "../cmps/ContactList.vue"
 export default {
     data() {
         return {
-            contacts: [],
+            contacts: null,
             filterBy: {
                 txt: '',
             },

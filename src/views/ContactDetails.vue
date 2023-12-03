@@ -6,7 +6,7 @@
             <button>Back</button>
         </RouterLink>
     </section>
-    <img v-else src="../assets/spinning-circles.svg" alt="">
+    <img v-else src="../assets/three-dots.svg" alt="">
 </template>
 
 <script>
@@ -19,7 +19,7 @@ export default {
     },
     async created() {
         const contactId = this.$route.params.id
-        this.contact = await contactService.getContactById(contactId)
+        this.contact = await contactService.getById(contactId)
     }
 }
 </script>
