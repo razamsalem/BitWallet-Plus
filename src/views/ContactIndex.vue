@@ -35,7 +35,6 @@ export default {
                 await contactService.removeContact(contactId)
                 const idx = this.contacts.findIndex(contact => contact._id === contactId)
                 this.contacts.splice(idx, 1)
-                console.log('Finish')
             } catch (err) {
                 console.log('Cant delete contact', err)
             }

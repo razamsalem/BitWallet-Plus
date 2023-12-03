@@ -5,8 +5,10 @@
         </div>
 
         <div class="user-info flex">
-            <a routerLink="/">{{ user.name }}</a>
-            <img routerLink="/" src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Image.png">
+            <RouterLink to="/">{{ user.name }}</RouterLink>
+            <RouterLink to="/"> <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Image.png">
+            </RouterLink>
+
         </div>
     </section>
 </template>
@@ -20,7 +22,7 @@ export default {
         }
     },
     props: {
-        title: '', 
+        title: '',
     },
     created() {
         this.user = userService.getUser()
@@ -61,12 +63,13 @@ export default {
             &:hover {
                 text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3);
             }
+
+            img {
+                cursor: pointer;
+                width: 45px;
+            }
         }
 
-        img {
-            cursor: pointer;
-            width: 45px;
-        }
     }
 }
 </style>
