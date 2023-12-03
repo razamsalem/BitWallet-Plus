@@ -5,7 +5,7 @@ const user = {
     age: 32,
     address: '1084 Branch Road, FL',
     phone: '904-379-5482',
-    email: 'morganalex10@gmail.com',
+    email: 'smithalex10@gmail.com',
 }
 
 function getUser() {

@@ -1,11 +1,13 @@
 <template>
     <section v-if="contact" class="contact-edit">
+        <h2>{{ displayTitle }}</h2>
+
         <form @submit.prevent="onSaveContact">
             <input v-model="contact.name" type="text">
             <input v-model.number="contact.age" type="number">
             <pre>{{ contact }}</pre>
             <button>Save</button>
-            <button>Save</button>
+            <button type="button" @click="back">Back</button>
         </form>
     </section>
     <img v-else src="../assets/three-dots.svg" alt="">
@@ -22,7 +24,15 @@ export default {
     methods: {
         async onSaveContact() {
             await contactService.save(this.contact)
-            this.$router.push('/contact')
+            this.back()
+        },
+        back() {
+			this.$router.push('/contact')
+		},
+    },
+    computed: {
+        displayTitle() {
+            return this.contact._id ? `Edit ${this.contact.name}` :  'Add new contact'
         }
     },
     async created() {
