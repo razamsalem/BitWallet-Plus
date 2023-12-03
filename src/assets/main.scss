@@ -155,3 +155,40 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
+.blurred {
+  filter: blur(4px);
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.icon {
+  width: 25px;
+}
+
+.green {
+  color: #81c995;
+}
+
+.errors {
+  color: red;
+  margin-top: 0;
+}
+
+.colored {
+  color: #00415a;
+}
+
+.lgreen {
+  color: #79a471;
+}
+
+.dgreen {
+  color: #278664;
+}
+
+.gold {
+  color: #bf9b30;
+}

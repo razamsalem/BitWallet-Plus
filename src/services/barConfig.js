@@ -1,27 +1,26 @@
 export const data = {
     labels: [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
+      '2017',
+      '2018',
+      '2019',
+      '2020',
+      '2021',
+      '2022',
+      '2023'
     ],
     datasets: [
       {
-        label: 'Data One',
-        backgroundColor: '#f87979',
-        data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
-      }
-    ]
+        label: 'Bitcoin Price',
+        backgroundColor: '#E6676B',
+        data: [30000, 32000, 31000, 33000, 34000, 32000, 35000]
+      },
+      {
+        label: 'Transaction Volume',
+        backgroundColor: '#c1d8f0',
+        data: [20000, 22000, 21000, 24000, 23000, 22000, 25000]
+      },
+      ]
   }
-  
   export const options = {
     responsive: true,
     maintainAspectRatio: false
