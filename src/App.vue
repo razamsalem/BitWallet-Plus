@@ -1,20 +1,20 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import NavBar from './cmps/NavBar.vue';
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/contact">Contact</RouterLink>
-        <!-- <RouterLink to="/transactions">transactions</RouterLink> -->
-        <!-- <RouterLink to="/stats">Stats</RouterLink> -->
-      </nav>
-    </div>
-  </header>
+  <section class="main-layout">
+    <section class="nav-bar nav">
+      <NavBar />
+    </section>
+    <header>
 
-  <RouterView />
+    </header>
+    <main>
+      <RouterView />
+    </main>
+  </section>
 </template>
 
 <style scoped>
@@ -28,30 +28,6 @@ header {
   margin: 0 auto 2rem;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
 
 @media (min-width: 1024px) {
   header {

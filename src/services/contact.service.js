@@ -26,15 +26,15 @@ const contacts = [
     {
         "_id": "5a56640269f443a5d64b32cb",
         "name": "John Doe",
-        "email": "johndoe@example.com",
+        "email": "johndoe@gmail.com",
         "address": "123 Main Street, CA",
         "age": 30,
         "phone": "+1 (123) 456-7890"
     },
     {
         "_id": "5a56640269f443a5d64b32cc",
-        "name": "Alice Smith",
-        "email": "alicesmith@example.com",
+        "name": "Alice Parker",
+        "email": "aliceparker@gmail.com",
         "address": "456 Oak Avenue, NY",
         "age": 25,
         "phone": "+1 (987) 654-3210"
@@ -42,7 +42,7 @@ const contacts = [
     {
         "_id": "5a56640269f443a5d64b32cd",
         "name": "Bob Johnson",
-        "email": "bobjohnson@example.com",
+        "email": "bobjohnson@gmail.com",
         "address": "789 Pine Street, TX",
         "age": 35,
         "phone": "+1 (555) 123-4567"
@@ -50,7 +50,7 @@ const contacts = [
     {
         "_id": "5a56640269f443a5d64b32ce",
         "name": "Emily Williams",
-        "email": "emilywilliams@example.com",
+        "email": "emilywilliams@gmail.com",
         "address": "987 Cedar Avenue, FL",
         "age": 28,
         "phone": "+1 (111) 222-3333"
@@ -58,7 +58,7 @@ const contacts = [
     {
         "_id": "5a56640269f443a5d64b32cf",
         "name": "Michael Brown",
-        "email": "michaelbrown@example.com",
+        "email": "michaelbrown@gmail.com",
         "address": "654 Birch Street, WA",
         "age": 40,
         "phone": "+1 (777) 888-9999"

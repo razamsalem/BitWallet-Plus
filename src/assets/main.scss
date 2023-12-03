@@ -33,3 +33,20 @@ a,
     padding: 0 2rem;
   }
 }
+
+.main-layout {
+  display: grid;
+  grid-template-columns: 13.75rem 1fr;
+
+  >*.full {
+      grid-column: 1 / -1;
+  }
+
+  >*:not(.full) {
+      grid-column: 2;
+  }
+
+  >*.nav {
+      grid-column: 1;
+  }
+}
