@@ -35,6 +35,7 @@
 <script>
 import { contactService } from '../services/contact.service';
 import AppHeader from '../cmps/AppHeader.vue'
+import { eventBus } from '../services/eventBus.service';
 export default {
     data() {
         return {
@@ -44,6 +45,7 @@ export default {
     methods: {
         async onSaveContact() {
             await contactService.save(this.contact)
+            eventBus.emit('user-msg', `contact saved successfully`)
             this.back()
         },
         back() {

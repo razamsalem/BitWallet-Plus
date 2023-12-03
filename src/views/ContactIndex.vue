@@ -15,6 +15,7 @@
 <script>
 import { contactService } from '@/services/contact.service.js'
 import { RouterLink } from 'vue-router'
+import { eventBus } from '../services/eventBus.service'
 import ContactFilter from '@/cmps/ContactFilter.vue'
 import contactList from "../cmps/ContactList.vue"
 import AppHeader from '../cmps/AppHeader.vue'
@@ -35,6 +36,7 @@ export default {
                 await contactService.removeContact(contactId)
                 const idx = this.contacts.findIndex(contact => contact._id === contactId)
                 this.contacts.splice(idx, 1)
+                eventBus.emit('user-msg', `contact removed successfully`)
             } catch (err) {
                 console.log('Cant delete contact', err)
             }
@@ -56,7 +58,7 @@ export default {
         contactList,
         ContactFilter,
         RouterLink,
-        AppHeader
+        AppHeader,
     }
 }
 </script>

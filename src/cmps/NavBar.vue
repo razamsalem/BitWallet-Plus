@@ -1,7 +1,7 @@
 <template>
     <section class="nav-bar flex">
         <h1 @click="goHome" class="logo">Bitcoin<i class="fa-solid fa-plus"></i></h1>
-
+        
         <nav class="flex">
             <RouterLink to="/">
                 <i class="fa-regular fa-address-card"></i> My Card
@@ -23,16 +23,23 @@
                     class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal"></i>
             </button> -->
         </nav>
+        <UserMsg/>
     </section>
 </template>
 
 <script>
+import UserMsg from '../cmps/UserMsg.vue'
+
 export default {
     methods: {
         goHome() {
             this.$router.push(`/`)
         },
-    }
+    },
+    components: {
+    UserMsg,
+    UserMsg
+}
 }
 </script>
 
