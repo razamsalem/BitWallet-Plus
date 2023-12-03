@@ -1,6 +1,6 @@
 <template>
     <section class="nav-bar flex">
-        <h1 class="logo">Bitcoin +</h1>
+        <h1 @click="goHome" class="logo">Bitcoin<i class="fa-solid fa-plus"></i></h1>
 
         <nav class="flex">
             <RouterLink to="/">
@@ -28,11 +28,15 @@
 
 <script>
 export default {
+    methods: {
+        goHome() {
+            this.$router.push(`/`)
+        },
+    }
 }
 </script>
 
 <style lang="scss">
-
 .nav-bar {
     position: relative;
     flex-direction: column;
@@ -41,10 +45,20 @@ export default {
     color: #00719c;
 
     .logo {
+        display: flex;
+        align-items: center;
+
         margin-block-end: 1em;
         font-size: 28px;
         font-weight: 600;
         cursor: pointer;
+
+        
+    .fa-plus {
+        font-size: 16px;
+        color: #fff;
+        margin-inline-start: 4px;
+    }
     }
 
     nav {
@@ -54,6 +68,10 @@ export default {
         a {
 
             padding: .5em;
+
+            i {
+                margin-inline-end: 2px;
+            }
 
             &:not(:last-child) {
                 margin-inline-end: 10px;
@@ -93,6 +111,8 @@ export default {
                 color: white;
             }
         }
+
     }
+
 }
 </style>

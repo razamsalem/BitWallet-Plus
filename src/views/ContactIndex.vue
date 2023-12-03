@@ -1,21 +1,24 @@
 <template>
-    <section v-if="contacts" class="contact-index">
-        <RouterLink to="contact/edit">
-            <button>Add a Contact</button>
+    <section class="contact-index">
+        <app-header :title="title"></app-header>
+        <RouterLink to="contact/edit" class="add-btn" title="Add Contact">
+            <button><i class="fa-solid fa-plus fa-2xl"></i></button>
         </RouterLink>
         <ContactFilter @set-filter="onFilter" />
-        <contactList :contacts="filteredContacts" @remove="removeContact" />
+        <contactList v-if="contacts" :contacts="filteredContacts" @remove="removeContact" />
+        <div v-else class="loader">
+            <img src="../assets/three-dots.svg" alt="">
+        </div>
     </section>
-    <div v-else class="loader">
-        <img src="../assets/three-dots.svg" alt="">
-    </div>
 </template>
 
 <script>
 import { contactService } from '@/services/contact.service.js'
+import { RouterLink } from 'vue-router'
 import ContactFilter from '@/cmps/ContactFilter.vue'
 import contactList from "../cmps/ContactList.vue"
-import { RouterLink } from 'vue-router'
+import AppHeader from '../cmps/AppHeader.vue'
+
 export default {
     data() {
         return {
@@ -23,6 +26,7 @@ export default {
             filterBy: {
                 txt: '',
             },
+            title: 'Contacts'
         }
     },
     methods: {
@@ -31,6 +35,7 @@ export default {
                 await contactService.removeContact(contactId)
                 const idx = this.contacts.findIndex(contact => contact._id === contactId)
                 this.contacts.splice(idx, 1)
+                console.log('Finish')
             } catch (err) {
                 console.log('Cant delete contact', err)
             }
@@ -51,9 +56,41 @@ export default {
     components: {
         contactList,
         ContactFilter,
-        RouterLink
+        RouterLink,
+        AppHeader
     }
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.contact-index {
+    background-color: #00415a;
+    min-height: 100vh;
+    padding: 1rem;
+
+    .contact {
+        padding: 45px;
+    }
+
+    .add-btn {
+        button {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+    
+            width: 4em;
+            height: 4em;
+            border: 1px solid #001f2b;
+            border-radius: 50%;
+            transition: .4s;
+            z-index: 999;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    
+            &:hover {
+                width: 5em;
+                height: 5em;
+            }
+        }
+    }
+}
+</style>

@@ -21,4 +21,18 @@ export default {
 };
 </script>
   
-<style lang="scss"></style>
+<style lang="scss">
+.contact-filter {
+    margin-block-end: 20px;
+    input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #232323;
+        border-radius: 8px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+</style>

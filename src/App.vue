@@ -8,9 +8,6 @@ import NavBar from './cmps/NavBar.vue';
     <section class="nav-bar nav">
       <NavBar />
     </section>
-    <header>
-
-    </header>
     <main>
       <RouterView />
     </main>
@@ -18,10 +15,6 @@ import NavBar from './cmps/NavBar.vue';
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
 
 .logo {
   display: block;

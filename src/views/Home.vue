@@ -1,6 +1,6 @@
 <template>
   <section class="home-container">
-    <!-- <app-profile-header [title]="title"></app-profile-header> -->
+    <app-header :title="title"/>
     <div class="card">
       <div class="home-layout">
         <div class="user flex left">
@@ -37,6 +37,7 @@
 <script>
 import { userService } from '../services/user.service'
 import { bitcoinService } from '../services/bitcoin.service'
+import AppHeader from '../cmps/AppHeader.vue'
 
 export default {
   data() {
@@ -44,6 +45,7 @@ export default {
       user: {},
       bitcoinRate: 0,
       formattedUserBalance: '',
+      title: 'My Card'
     }
   },
   methods: {
@@ -71,6 +73,9 @@ export default {
   userBitcoinBalance().then((result) => {
     this.bitcoinRate = result
   })
+},
+components: {
+  AppHeader,
 }
 }
 
@@ -107,6 +112,7 @@ export default {
     .user {
       flex-direction: column;
       align-items: center;
+      color: #00415a;
 
       .name {
         font-size: 26px;
@@ -124,11 +130,8 @@ export default {
       flex-direction: column;
 
       h1 {
-
-        // &:not(:first-of-type, :last-type:first-of-type) {
         margin-block: .2em;
-        // }
-
+        color: #00415a;
       }
 
       .user-detail {
@@ -136,8 +139,8 @@ export default {
         font-size: 1rem;
 
         .icon {
-          color: #00415a;
           font-size: .9rem;
+          margin-inline-end: 5px;
         }
 
         &:last-of-type {

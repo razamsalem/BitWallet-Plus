@@ -6,7 +6,9 @@
             <button>Back</button>
         </RouterLink>
     </section>
-    <img v-else src="../assets/three-dots.svg" alt="">
+    <div v-else class="loader">
+        <img src="../assets/three-dots.svg" alt="">
+    </div>
 </template>
 
 <script>

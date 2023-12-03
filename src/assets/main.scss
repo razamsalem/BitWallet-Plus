@@ -149,3 +149,9 @@
   }
 }
 
+.loader {
+  position: fixed;
+  right: 40%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

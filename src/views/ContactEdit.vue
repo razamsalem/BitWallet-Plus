@@ -10,7 +10,9 @@
             <button type="button" @click="back">Back</button>
         </form>
     </section>
-    <img v-else src="../assets/three-dots.svg" alt="">
+    <div v-else class="loader">
+        <img  src="../assets/three-dots.svg" alt="">
+    </div>
 </template>
 
 <script>
