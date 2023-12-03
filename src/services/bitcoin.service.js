@@ -1,37 +1,41 @@
-const axios = require('axios');
+import axios from 'axios'
+import { dbService } from '../services/db.service'
+
+const PRICE_HISTORY_KEY = 'price-historyDB'
+const TRANSACTIONS_HISTORY_KEY = 'transactions-historyDB'
 
 export const bitcoinService = {
-    getRate,
-    getMarketPriceHistory,
-    getAvgBlockSize,
-};
-
-async function getRate() {
-    try {
-        const response = await axios.get('https://blockchain.info/ticker');
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching exchange rates:', error.message);
-        throw error;
-    }
+	getRate,
+	getPriceHistory,
+	getTransactionsHistory,
 }
 
-async function getMarketPriceHistory() {
-    try {
-        const response = await axios.get('https://api.blockchain.info/charts/market-price?timespan=5months&format=json&cors=true');
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching market price history:', error.message);
-        throw error;
-    }
+async function getRate(coins) {
+	const url = `https://blockchain.info/tobtc?currency=USD&value=${coins}`
+	const { data } = await axios.get(url)
+	return data
 }
 
-async function getAvgBlockSize() {
-    try {
-        const response = await axios.get('https://api.blockchain.info/charts/avg-block-size?timespan=5months&format=json&cors=true');
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching average block size:', error.message);
-        throw error;
-    }
+async function getPriceHistory() {
+	let priceHistory = await dbService.query(PRICE_HISTORY_KEY)
+	
+    if (!priceHistory || !priceHistory.length) {
+		const url = 'https://api.blockchain.info/charts/market-price?timespan=5months&format=json&cors=true'
+		const { data } = await axios.get(url)
+		priceHistory = data.values
+		await dbService.insert(PRICE_HISTORY_KEY, data.values)
+	}
+	return priceHistory
+}
+
+async function getTransactionsHistory() {
+	let transactionsHistory = await dbService.query(TRANSACTIONS_HISTORY_KEY)
+	
+    if (!transactionsHistory || !transactionsHistory.length) {
+		const url = 'https://api.blockchain.info/charts/trade-volume?timespan=5months&format=json&cors=true'
+		const { data } = await axios.get(url)
+		await dbService.insert(TRANSACTIONS_HISTORY_KEY, data.values)
+		transactionsHistory = data.values
+	}
+	return transactionsHistory
 }

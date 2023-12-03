@@ -22,7 +22,7 @@ export default {
     },
     methods: {
         async removeContact(contact) {
-            await contactService.deleteContact(contact._id)
+            await contactService.removeContact(contact._id)
         },
         onFilter(newFilter) {
             this.filterBy = newFilter
