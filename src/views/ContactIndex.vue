@@ -1,5 +1,8 @@
 <template>
     <section v-if="contacts" class="contact-index">
+        <RouterLink to="contact/edit">
+            <button>Add a Contact</button>
+        </RouterLink>
         <ContactFilter @set-filter="onFilter" />
         <contactList :contacts="filteredContacts" @remove="removeContact" />
     </section>
@@ -12,6 +15,7 @@
 import { contactService } from '@/services/contact.service.js'
 import ContactFilter from '@/cmps/ContactFilter.vue'
 import contactList from "../cmps/ContactList.vue"
+import { RouterLink } from 'vue-router'
 export default {
     data() {
         return {
@@ -24,12 +28,12 @@ export default {
     methods: {
         async removeContact(contactId) {
             try {
-				await contactService.removeContact(contactId)
+                await contactService.removeContact(contactId)
                 const idx = this.contacts.findIndex(contact => contact._id === contactId)
-				this.contacts.splice(idx, 1)
-			} catch (err) {
-				console.log('Cant delete contact', err)
-			}
+                this.contacts.splice(idx, 1)
+            } catch (err) {
+                console.log('Cant delete contact', err)
+            }
         },
         onFilter(newFilter) {
             this.filterBy = newFilter
@@ -46,7 +50,8 @@ export default {
     },
     components: {
         contactList,
-        ContactFilter
+        ContactFilter,
+        RouterLink
     }
 }
 </script>

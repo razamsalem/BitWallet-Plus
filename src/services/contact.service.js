@@ -9,13 +9,25 @@ export const contactService = {
     removeContact
 }
 
+function sort(arr) {
+    return arr.sort((a, b) => {
+        if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) {
+            return -1
+        }
+        if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) {
+            return 1
+        }
+        return 0
+    })
+}
+
 async function getContacts() {
     let contacts = await dbService.query(STORAGE_KEY)
     if (!contacts || !contacts.length) {
         contacts = gContacts
         await dbService.insert(STORAGE_KEY, contacts)
     }
-    return contacts
+    return sort(contacts)
 }
 
 async function getById(contactId) {
