@@ -18,7 +18,7 @@ export default {
     methods: {
         onUserMsg(payload) {
             this.msg.txt = payload
-            setTimeout(() => this.msg.txt = '', 1500)
+            setTimeout(() => this.msg.txt = '', 1000)
         }
     },
     created() {
