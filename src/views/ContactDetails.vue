@@ -255,5 +255,13 @@ export default {
 
     }
 
+    @media (max-width: 1250px) {
+    .card {
+      width: 100%;
+      margin: 2rem auto;
+      grid-template-columns: 1fr;
+    }
+  }
+
 }
 </style>

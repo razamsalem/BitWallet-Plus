@@ -31,7 +31,7 @@ export default {
     methods: {
         async removeContact(contactId) {
             try {
-              await this.$store.dispatch({ type: 'removeContact', contactId })
+                await this.$store.dispatch({ type: 'removeContact', contactId })
                 eventBus.emit('user-msg', `contact removed successfully`)
             } catch (err) {
                 console.log('Cannot delete contact', err)
