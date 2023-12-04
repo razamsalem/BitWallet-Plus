@@ -17,7 +17,7 @@ const ID_FIELD = '_id'
 async function query(collectionName) {
     var collection = storageService.load(collectionName)
     if (!collection) collection = []
-    return new Promise(resolve => setTimeout(() => resolve(collection), 500))
+    return new Promise(resolve => setTimeout(() => resolve(collection), 200))
 }
 
 async function get(collectionName, id) {

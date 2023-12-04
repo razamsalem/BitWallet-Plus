@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import contact from './modules/contact'
 
 const storeOptions = {
     strict: true,
@@ -14,6 +15,9 @@ const storeOptions = {
     },
     getters: {
         count(state) { return state.count }
+    },
+    modules: {
+        contact,
     }
 }
 const store = createStore(storeOptions)

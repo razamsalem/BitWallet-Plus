@@ -32,7 +32,8 @@
                     </div>
                     <div class="actions">
                         <RouterLink :to="`/contact/edit/${contact._id}`">
-                            <button  class="edit-btn" title="Edit this contact">  <i class="fa-solid fa-user-pen"></i></button>
+                            <button class="edit-btn" title="Edit this contact"> <i
+                                    class="fa-solid fa-user-pen"></i></button>
                         </RouterLink>
 
                         <!-- <div class="transfer-section">
@@ -63,7 +64,6 @@
 </template>
 
 <script>
-import { contactService } from "../services/contact.service.js"
 import AppHeader from '../cmps/AppHeader.vue'
 export default {
     data() {
@@ -74,8 +74,11 @@ export default {
     },
     async created() {
         const contactId = this.$route.params.id
-        this.contact = await contactService.getById(contactId)
+        this.contact = this.contacts.find(contact => contact._id == contactId)
         this.title = this.contact.name
+    },
+    computed: {
+        contacts() { return this.$store.getters.contacts }
     },
     components: {
         AppHeader,

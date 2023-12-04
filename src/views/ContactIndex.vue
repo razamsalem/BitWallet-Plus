@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import { contactService } from '@/services/contact.service.js'
 import { RouterLink } from 'vue-router'
 import { eventBus } from '../services/eventBus.service'
 import ContactFilter from '@/cmps/ContactFilter.vue'
@@ -23,7 +22,6 @@ import AppHeader from '../cmps/AppHeader.vue'
 export default {
     data() {
         return {
-            contacts: null,
             filterBy: {
                 txt: '',
             },
@@ -33,9 +31,7 @@ export default {
     methods: {
         async removeContact(contactId) {
             try {
-                await contactService.removeContact(contactId)
-                const idx = this.contacts.findIndex(contact => contact._id === contactId)
-                this.contacts.splice(idx, 1)
+                this.$store.dispatch({ type: 'removeContact', contactId })
                 eventBus.emit('user-msg', `contact removed successfully`)
             } catch (err) {
                 console.log('Cant delete contact', err)
@@ -45,14 +41,17 @@ export default {
             this.filterBy = newFilter
         }
     },
-    async created() {
-        this.contacts = await contactService.getContacts()
-    },
     computed: {
+        contacts() {
+            return this.$store.getters.contacts
+        },
         filteredContacts() {
             const regex = new RegExp(this.filterBy.txt, 'i')
             return this.contacts.filter(contact => regex.test(contact.name))
         }
+    },
+    async created() {
+        this.$store.dispatch({ type: 'loadContacts' })
     },
     components: {
         contactList,
@@ -78,7 +77,7 @@ export default {
             position: fixed;
             bottom: 35px;
             right: 35px;
-    
+
             width: 4em;
             height: 4em;
             border: 1px solid #001f2b;
@@ -86,7 +85,7 @@ export default {
             transition: .4s;
             z-index: 999;
             box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    
+
             &:hover {
                 width: 5em;
                 height: 5em;

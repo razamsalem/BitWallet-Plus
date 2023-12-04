@@ -24,7 +24,8 @@
                     <button>Save</button>
                 </form>
             </div>
-            <button type="button" @click="back" class="back-btn"><i class="fa-solid fa-share fa-flip-horizontal"></i></button>
+            <button type="button" @click="back" class="back-btn"><i
+                    class="fa-solid fa-share fa-flip-horizontal"></i></button>
         </div>
     </section>
     <div v-else class="loader">
@@ -44,26 +45,36 @@ export default {
     },
     methods: {
         async onSaveContact() {
-            await contactService.save(this.contact)
-            eventBus.emit('user-msg', `contact saved successfully`)
+            const isUpdate = !!this.$route.params.id
+            await this.$store.dispatch({ type: 'saveContact', contact: this.contact })
+
+            if (isUpdate) {
+                eventBus.emit('user-msg', `contact updated successfully`)
+            } else {
+                eventBus.emit('user-msg', `contact saved successfully`)
+            }
             this.back()
         },
         back() {
             this.$router.push('/contact')
         },
     },
-    computed: {
-        displayTitle() {
-            return this.contact._id ? `Edit ${this.contact.name}` : 'Add new contact'
-        }
-    },
     async created() {
         const contactId = this.$route.params.id
         if (contactId) {
-            this.contact = await contactService.getById(contactId)
+            const contact = this.contacts.find(contact => contact._id == contactId)
+            this.contact = JSON.parse(JSON.stringify(contact))
         }
         else {
             this.contact = contactService.getEmptyContact()
+        }
+    },
+    computed: {
+        displayTitle() {
+            return this.contact._id ? `Edit ${this.contact.name}` : 'Add new contact'
+        },
+        contacts() {
+            return this.$store.getters.contacts
         }
     },
     components: {
@@ -103,10 +114,10 @@ export default {
         padding: 2em;
         box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
         margin: auto;
-        margin-top: 4em; 
+        margin-top: 4em;
         width: 50vw;
         max-width: 600px;
-        height: auto; 
+        height: auto;
 
         label {
             display: block;
@@ -147,5 +158,4 @@ export default {
         }
     }
 }
-
 </style>
