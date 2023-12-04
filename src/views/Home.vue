@@ -1,6 +1,6 @@
 <template>
   <section class="home-container">
-    <app-header :title="title"/>
+    <app-header :title="title" />
     <div class="card">
       <div class="home-layout">
         <div class="user flex left">
@@ -53,30 +53,30 @@ export default {
       if (this.user) {
         this.formattedUserBalance = this.user.balance.toFixed(2)
       }
-    }
+    },
   },
   created() {
-  this.user = userService.getUser()
-  this.formatUserBalance()
+    this.user = userService.getUser()
+    this.formatUserBalance()
 
-  const moneyToConvert = this.user.balance
+    const moneyToConvert = this.user.balance
 
-  const userBitcoinBalance = async () => {
-    try {
-      return await bitcoinService.getRate(moneyToConvert)
-    } catch (error) {
-      console.error('Error fetching bitcoin rate:', error)
-      return 0 
+    const userBitcoinBalance = async () => {
+      try {
+        return await bitcoinService.getRate(moneyToConvert)
+      } catch (error) {
+        console.error('Error fetching bitcoin rate:', error)
+        return 0
+      }
     }
-  }
 
-  userBitcoinBalance().then((result) => {
-    this.bitcoinRate = result
-  })
-},
-components: {
-  AppHeader,
-}
+    userBitcoinBalance().then((result) => {
+      this.bitcoinRate = result
+    })
+  },
+  components: {
+    AppHeader,
+  }
 }
 
 
