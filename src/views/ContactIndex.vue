@@ -31,10 +31,10 @@ export default {
     methods: {
         async removeContact(contactId) {
             try {
-                this.$store.dispatch({ type: 'removeContact', contactId })
+              await this.$store.dispatch({ type: 'removeContact', contactId })
                 eventBus.emit('user-msg', `contact removed successfully`)
             } catch (err) {
-                console.log('Cant delete contact', err)
+                console.log('Cannot delete contact', err)
             }
         },
         onFilter(newFilter) {
@@ -51,12 +51,16 @@ export default {
         }
     },
     async created() {
-        this.$store.dispatch({ type: 'loadContacts' })
+        try {
+            this.$store.dispatch({ type: 'loadContacts' })
+        } catch (err) {
+            console.log('cannot load contacts ->', err)
+        }
     },
     components: {
+        RouterLink,
         contactList,
         ContactFilter,
-        RouterLink,
         AppHeader,
     }
 }

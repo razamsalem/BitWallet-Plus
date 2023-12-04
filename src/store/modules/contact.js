@@ -23,22 +23,38 @@ export default {
     },
     actions: {
         async loadContacts(context) {
-            const contacts = await contactService.getContacts()
-            context.commit({ type: 'setContacts', contacts })
+            try {
+                const contacts = await contactService.getContacts()
+                context.commit({ type: 'setContacts', contacts })
+            } catch (err) {
+                console.log('Error loading contacts -> ', err)
+                throw err
+            }
         },
         async removeContact(context, { contactId }) {
-            await contactService.removeContact(contactId)
-            context.commit({ type: 'removeContact', contactId })
+            try {
+                await contactService.removeContact(contactId)
+                context.commit({ type: 'removeContact', contactId })
+            } catch (err) {
+                console.log('couldn\'t remove contact -> ', err)
+                throw err  
+            }
         },
         async saveContact(context, { contact }) {
             const isUpdate = !!contact._id
-            const savedContact = await contactService.save(contact)
-
-            if (isUpdate) {
-                context.commit({ type: 'updateContact', savedContact })
-            } else {
-                context.commit({ type: 'saveContact', savedContact })
+            try {
+                const savedContact = await contactService.save(contact)
+                
+                if (isUpdate) {
+                    context.commit({ type: 'updateContact', savedContact })
+                } else {
+                    context.commit({ type: 'saveContact', savedContact })
+                }
+            } catch (err) {
+                console.log('cannot save contact -> ', err)
+                throw err
             }
+
         }
     },
     getters: {

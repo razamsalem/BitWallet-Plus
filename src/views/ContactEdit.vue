@@ -46,14 +46,20 @@ export default {
     methods: {
         async onSaveContact() {
             const isUpdate = !!this.$route.params.id
-            await this.$store.dispatch({ type: 'saveContact', contact: this.contact })
 
-            if (isUpdate) {
-                eventBus.emit('user-msg', `contact updated successfully`)
-            } else {
-                eventBus.emit('user-msg', `contact saved successfully`)
+            try {
+                await this.$store.dispatch({ type: 'saveContact', contact: this.contact })
+
+                if (isUpdate) {
+                    eventBus.emit('user-msg', `contact updated successfully`)
+                } else {
+                    eventBus.emit('user-msg', `contact saved successfully`)
+                }
+            } catch (err) {
+                console.log('couldn\'t save contact')
+            } finally {
+                this.back()
             }
-            this.back()
         },
         back() {
             this.$router.push('/contact')

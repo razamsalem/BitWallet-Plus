@@ -123,6 +123,7 @@ const gContacts = [
     {
         "_id": "5a566402ed1cf349f0b47b4d",
         "name": "Rachel Lowe",
+        "email": "loweracel@renovize.com",
         "address": "2080 Harper Street, KY",
         "age": 38,
         "phone": "+1 (911) 475-2312"
