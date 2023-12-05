@@ -1,4 +1,5 @@
 const USER_STORAGE_KEY = 'user'
+import { eventBus } from './eventBus.service'
 
 function getUser() {
     let user = JSON.parse(localStorage.getItem(USER_STORAGE_KEY))
@@ -34,7 +35,9 @@ function transferFunds(transaction) {
         user.balance -= transaction.amount
         user.transactions.push(transaction)
         _saveUserToLocalStorage(user)
+        eventBus.emit('user-msg', `Funds moved successfully!`)
     } else {
+        eventBus.emit('user-msg', `Insufficient funds`)
         console.error('Insufficient funds')
     }
 }

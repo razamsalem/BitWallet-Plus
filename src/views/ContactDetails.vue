@@ -36,20 +36,20 @@
                                     class="fa-solid fa-user-pen"></i></button>
                         </RouterLink>
 
-                        <!-- <div class="transfer-section">
-                            <button *ngIf="!transferAmount" (click)="transferAmount = 1" class="transfer-money-btn"
+                        <div class="transfer-section">
+                            <button v-if="!transferAmount" @click="transferAmount = 1" class="transfer-money-btn"
                                 title="Transfer money">
                                 <i class="fa-solid fa-money-bill-transfer"></i>
                             </button>
                             <div class="input-container">
-                                <input *ngIf="transferAmount" type="number" class="transfer-input"
-                                    [(ngModel)]="transferAmount" placeholder="Enter amount">
-                                <i *ngIf="transferAmount" class="fa-solid fa-dollar-sign"></i>
+                                <input v-if="transferAmount" type="number" class="transfer-input"
+                                    v-model="transferAmount" placeholder="Enter amount">
+                                <i v-if="transferAmount" class="fa-solid fa-dollar-sign"></i>
                             </div>
-                            <button *ngIf="transferAmount" (click)="moveCoins()" class="transfer-btn">
+                            <button v-if="transferAmount" @click="transfer()" class="transfer-btn">
                                 <i title="Send money" class="fa-solid fa-paper-plane"></i>
                             </button>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,6 +65,7 @@
 
 <script>
 import AppHeader from '../cmps/AppHeader.vue'
+import { contactService } from '../services/contact.service';
 import { userService } from '../services/user.service';
 
 export default {
@@ -83,16 +84,29 @@ export default {
                     contactId: this.contact._id,
                     contact: this.contact.name,
                     date: new Date().toLocaleString(),
-                    amount: 2,
+                    amount: this.transferAmount,
                 }
+                console.log('sd');
                 userService.transferFunds(transaction)
             }
         },
     },
     async created() {
-        const contactId = this.$route.params.id
-        this.contact = this.contacts?.find(contact => contact._id == contactId)
-        this.title = this.contact?.name
+        try {
+            const contactId = this.$route.params.id
+            const contacts = this.$store.getters.contacts
+
+            const response = await contactService.getById(contactId)
+
+            if (response) {
+                this.contact = response;
+                this.title = this.contact.name
+            } else {
+                console.error(`Contact with ID ${contactId} not found`)
+            }
+        } catch (error) {
+            console.error('Error fetching contact data:', error)
+        }
     },
     computed: {
         contacts() { return this.$store.getters.contacts },

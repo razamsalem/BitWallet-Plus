@@ -34,7 +34,7 @@ export default {
     left: 55%;
     transform: translateX(-50%);
     z-index: 1000;
-    background-color: lightgreen;
+    background-color: 	#c1d8f0;
     width: max-content;
     padding: 4px 10px;
     border-radius: 8px;
