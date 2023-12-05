@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import transaction from '../views/Transaction.vue'
 import contactIndex from '../views/contactIndex.vue'
 import contactDetails from '../views/contactDetails.vue'
 import contactEdit from '../views/contactEdit.vue'
@@ -12,6 +13,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/transaction',
+      name: 'transaction',
+      component: transaction
     },
     {
       path: '/contact',
