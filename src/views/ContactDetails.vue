@@ -26,8 +26,8 @@
                                     at <span class="colored"> {{ transaction.date }} </span>
                                 </span>
                             </p>
-                            <!-- <p class="no-transfers-message" v-if="transaction.length === 0">No transfers with {{
-                                contact.name }}.</p> -->
+                            <p class="no-transfers-message" v-if="ContactTransactions.length === 0">No transfers with {{
+                                contact.name }}.</p>
                         </div>
                     </div>
                     <div class="actions">
