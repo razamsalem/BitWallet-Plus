@@ -1,9 +1,9 @@
 <template>
     <section class="contact-list">
         <ul class="contact-list contacts-layout clean-list">
-            <li v-for="contact in contacts" :key="contact._id">
-                <ContactPreview :contact="contact" @remove="onRemoveContact" />
-            </li>
+                <li v-for="contact in contacts" :key="contact._id">
+                    <ContactPreview :contact="contact" @remove="onRemoveContact" />
+                </li>
         </ul>
     </section>
 </template>

@@ -18,12 +18,10 @@
             <RouterLink to="/stats">
                 <i class="fa-solid fa-chart-simple"></i> Stats
             </RouterLink>
-
-            <!-- <button (click)="onLogout()" title="Logout" class="logout-btn"><i
-                    class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal"></i>
-            </button> -->
         </nav>
-        <UserMsg/>
+        <Transition>
+            <UserMsg/>
+        </Transition>
     </section>
 </template>
 
@@ -118,8 +116,17 @@ export default {
                 color: white;
             }
         }
-
     }
+}
 
+.v-enter-active,
+.v-leave-active {
+    transition: 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+    transform: translateY(100px);
 }
 </style>
