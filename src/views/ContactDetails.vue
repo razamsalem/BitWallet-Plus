@@ -18,7 +18,7 @@
 
                         <div class="last-transfers">
                             <h3>Recent transactions with {{ contact.name }}</h3>
-                            <p class="user-detail flex" v-for="transaction in ContactTransactions">
+                            <p class="user-detail flex" v-for="(transaction, index) in ContactTransactions.slice(0, 3)" :key="index">
                                 <i class="fa-solid fa-coins icon"></i>
                                 <span> Transfer <span class="gold"> ${{ transaction.amount }} </span>
                                     to <span class="colored">{{ transaction.contact }}</span>
@@ -91,8 +91,8 @@ export default {
     },
     async created() {
         const contactId = this.$route.params.id
-        this.contact = this?.contacts.find(contact => contact._id == contactId)
-        this.title = this.contact.name
+        this.contact = this.contacts?.find(contact => contact._id == contactId)
+        this.title = this.contact?.name
     },
     computed: {
         contacts() { return this.$store.getters.contacts },
