@@ -16,17 +16,17 @@
           <h1 class="user-detail flex"><i class="fa-solid fa-wallet icon"></i> ${{ formattedUserBalance }}</h1>
           <h1 class="user-detail flex"><i class="fa-brands fa-bitcoin icon"></i> {{ bitcoinRate }}</h1>
 
-          <!-- <div class="last-transfers">
-                    <h3>Your recent transactions</h3>
-                    <p class="user-detail flex" *ngFor="let move of lastMoves.slice().reverse()">
-                        <i class="fa-solid fa-coins icon"></i>
-                        <span> Transfer <span class="gold"> ${{move.amount }} </span>
-                            to <span class="colored">{{ move.to }}</span>
-                            <br>
-                            at <span class="colored"> {{ move.at|date:'short' }} </span>
-                        </span>
-                    </p>
-                </div> -->
+          <div class="last-transfers">
+            <h3>Your recent transactions</h3>
+            <p class="user-detail flex" v-for="(transaction, index) in ContactTransactions.slice(0, 3)" :key="index">
+              <i class="fa-solid fa-coins icon"></i>
+              <span> Transfer <span class="gold"> ${{ transaction.amount }} </span>
+                to <span class="colored">{{ transaction.contact }}</span>
+                <br>
+                at <span class="colored"> {{ transaction.date }} </span>
+              </span>
+            </p>
+          </div>
 
         </div>
       </div>
@@ -73,6 +73,15 @@ export default {
     userBitcoinBalance().then((result) => {
       this.bitcoinRate = result
     })
+  },
+  computed: {
+    contactMoves() {
+      const userTransfers = userService.getTransactions()
+      return userTransfers
+    },
+    ContactTransactions() {
+      return this.contactMoves.slice().reverse()
+    },
   },
   components: {
     AppHeader,
