@@ -11,9 +11,9 @@
                 <i class="fa-regular fa-address-book"></i> Contacts
             </RouterLink>
 
-            <!-- <a routerLink="/transfers" routerLinkActive="active">
+            <RouterLink to="/transaction">
                 <i class="fa-solid fa-handshake"></i> Transfers
-            </a> -->
+            </RouterLink>
 
             <RouterLink to="/stats">
                 <i class="fa-solid fa-chart-simple"></i> Stats

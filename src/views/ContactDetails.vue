@@ -72,6 +72,7 @@ export default {
     data() {
         return {
             contact: null,
+            user: null,
             transferAmount: null,
             title: '',
         }
@@ -86,15 +87,21 @@ export default {
                     date: new Date().toLocaleString(),
                     amount: this.transferAmount,
                 }
-                console.log('sd');
+                if (this.user.balance >= this.transferAmount) {
+                    this.goToTransfers()
+                }
                 userService.transferFunds(transaction)
             }
+        },
+        goToTransfers() {
+            this.$router.push(`/transaction`)
         },
     },
     async created() {
         try {
             const contactId = this.$route.params.id
             const contacts = this.$store.getters.contacts
+            this.user = userService.getUser()
 
             const response = await contactService.getById(contactId)
 

@@ -1,6 +1,6 @@
 <template>
-<div class="transfers-container">
-    <app-profile-header :title="title"></app-profile-header>
+    <div class="transfers-container">
+    <app-header :title="title"></app-header>
     <div v-if="allTransactions.length > 0" class="tranfer-list contacts-layout">
         <section v-for="(transfer, index) in allTransactions.slice().reverse()" :key="index" class="transfer-preview">
             {{ console.log(transfer)}}
@@ -26,7 +26,7 @@ export default {
     data() {
         return {
             allTransactions: [],
-            title: 'Transactions'
+            title: 'Transfers'
         }
     },
     methods: {
