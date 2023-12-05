@@ -7,8 +7,13 @@ function getUser() {
         user = {
             name: "Alex Smith",
             balance: 100,
-            transactions: [],
-            age: 32,
+            transactions: [{
+                contactId: '5a56640269f443a5d64b32cd',
+                contact: 'Bob Johnson',
+                date: new Date().toLocaleString(),
+                amount: 21
+            }],
+            age: 36,
             address: '1084 Branch Road, FL',
             phone: '904-379-5482',
             email: 'smithalex10@gmail.com',
@@ -21,6 +26,17 @@ function getUser() {
 
 function _saveUserToLocalStorage(user) {
     localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user))
+}
+
+function transferFunds(transaction) {
+    const user = getUser()
+    if (user.balance >= transaction.amount) {
+        user.balance -= transaction.amount
+        user.transactions.push(transaction)
+        _saveUserToLocalStorage(user)
+    } else {
+        console.error('Insufficient funds')
+    }
 }
 
 function addTransaction(type, amount, contact) {
@@ -55,4 +71,5 @@ export const userService = {
     getUser,
     addTransaction,
     getTransactions,
+    transferFunds
 }

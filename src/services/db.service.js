@@ -57,7 +57,6 @@ async function put(collectionName, item) {
 
 async function insert(collectionName, items) {
     var collection = await query(collectionName)
-    items.forEach(curr => (curr[ID_FIELD] = utilService.makeId()))
     collection.push(...items)
 
     storageService.save(collectionName, collection)

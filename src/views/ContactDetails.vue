@@ -16,19 +16,19 @@
                         <h1 class="user-detail flex"><i class="fa-solid fa-phone icon"></i> {{ contact.phone }}</h1>
                         <h1 class="user-detail flex"><i class="fa-solid fa-at icon"></i> {{ contact.email }}</h1>
 
-                        <!-- <div class="last-transfers">
-                        <h3>Recent transactions with {{ contact.name }}</h3>
-                        <p class="user-detail flex" *ngFor="let move of contactMoves.slice().reverse()">
-                            <i class="fa-solid fa-coins icon"></i>
-                            <span> Transfer <span class="gold"> ${{move.amount }} </span>
-                                to <span class="colored">{{ move.to }}</span>
-                                <br>
-                                at <span class="colored"> {{ move.at|date:'short' }} </span>
-                            </span>
-                        </p>
-                        <p class="no-transfers-message" *ngIf="contactMoves.length === 0">No transfers with {{
-                            contact.name }}.</p>
-                    </div> -->
+                        <div class="last-transfers">
+                            <h3>Recent transactions with {{ contact.name }}</h3>
+                            <p class="user-detail flex" v-for="transaction in ContactTransactions">
+                                <i class="fa-solid fa-coins icon"></i>
+                                <span> Transfer <span class="gold"> ${{ transaction.amount }} </span>
+                                    to <span class="colored">{{ transaction.contact }}</span>
+                                    <br>
+                                    at <span class="colored"> {{ transaction.date }} </span>
+                                </span>
+                            </p>
+                            <!-- <p class="no-transfers-message" v-if="transaction.length === 0">No transfers with {{
+                                contact.name }}.</p> -->
+                        </div>
                     </div>
                     <div class="actions">
                         <RouterLink :to="`/contact/edit/${contact._id}`">
@@ -37,19 +37,19 @@
                         </RouterLink>
 
                         <!-- <div class="transfer-section">
-                        <button *ngIf="!transferAmount" (click)="transferAmount = 1" class="transfer-money-btn"
-                            title="Transfer money">
-                            <i class="fa-solid fa-money-bill-transfer"></i>
-                        </button>
-                        <div class="input-container">
-                            <input *ngIf="transferAmount" type="number" class="transfer-input"
-                                [(ngModel)]="transferAmount" placeholder="Enter amount">
-                            <i *ngIf="transferAmount" class="fa-solid fa-dollar-sign"></i>
-                        </div>
-                        <button *ngIf="transferAmount" (click)="moveCoins()" class="transfer-btn">
-                            <i title="Send money" class="fa-solid fa-paper-plane"></i>
-                        </button>
-                    </div> -->
+                            <button *ngIf="!transferAmount" (click)="transferAmount = 1" class="transfer-money-btn"
+                                title="Transfer money">
+                                <i class="fa-solid fa-money-bill-transfer"></i>
+                            </button>
+                            <div class="input-container">
+                                <input *ngIf="transferAmount" type="number" class="transfer-input"
+                                    [(ngModel)]="transferAmount" placeholder="Enter amount">
+                                <i *ngIf="transferAmount" class="fa-solid fa-dollar-sign"></i>
+                            </div>
+                            <button *ngIf="transferAmount" (click)="moveCoins()" class="transfer-btn">
+                                <i title="Send money" class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -65,20 +65,44 @@
 
 <script>
 import AppHeader from '../cmps/AppHeader.vue'
+import { userService } from '../services/user.service';
+
 export default {
     data() {
         return {
             contact: null,
+            transferAmount: null,
             title: '',
         }
     },
+    methods: {
+        async transfer() {
+            if (this.transferAmount !== null && this.transferAmount > 0) {
+                const transaction = {
+                    type: 'sent',
+                    contactId: this.contact._id,
+                    contact: this.contact.name,
+                    date: new Date().toLocaleString(),
+                    amount: 2,
+                }
+                userService.transferFunds(transaction)
+            }
+        },
+    },
     async created() {
         const contactId = this.$route.params.id
-        this.contact = this.contacts.find(contact => contact._id == contactId)
+        this.contact = this?.contacts.find(contact => contact._id == contactId)
         this.title = this.contact.name
     },
     computed: {
-        contacts() { return this.$store.getters.contacts }
+        contacts() { return this.$store.getters.contacts },
+        contactMoves() {
+            const userTransfers = userService.getTransactions()
+            return  userTransfers.filter(move => move.contactId === this.contact._id)
+        }, 
+        ContactTransactions() {
+            return this.contactMoves.slice().reverse()
+        },
     },
     components: {
         AppHeader,
@@ -256,12 +280,12 @@ export default {
     }
 
     @media (max-width: 1250px) {
-    .card {
-      width: 100%;
-      margin: 2rem auto;
-      grid-template-columns: 1fr;
+        .card {
+            width: 100%;
+            margin: 2rem auto;
+            grid-template-columns: 1fr;
+        }
     }
-  }
 
 }
 </style>
